@@ -1,0 +1,11 @@
+SELECT peliculas.pelicula_id,
+ 		tipos_cambio.tipo_cambio_id,
+		tipos_cambio.cambio_usd * peliculas.precio_renta AS precio_mxn
+FROM 	peliculas,
+	    tipos_cambio
+WHERE tipos_cambio.codigo = 'MXN'
+
+ 
+ -- SELECT para seleccionar los datos que queremos.
+ -- FROM para decirle de donde lo va a traer
+ -- WHERE para filtrar datos

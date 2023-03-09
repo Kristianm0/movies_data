@@ -1,0 +1,28 @@
+
+select
+	peliculas.pelicula_id as id,
+	peliculas.titulo,
+	count(1) as numero_rentas,
+	ROW_NUMBER () OVER(
+	ORDER BY COUNT(*) DESC
+	) AS lugar
+from rentas
+inner join inventarios on
+	rentas.inventario_id = inventarios.inventario_id
+inner join peliculas on
+	peliculas.pelicula_id = inventarios.pelicula_id
+group by
+	peliculas.pelicula_id,
+	peliculas.titulo
+order by
+	numero_rentas desc
+limit 10;
+
+
+--- SELECT para elegir los dato que necesitamos. En este caso de la tabla peliculas trae el id, y el titulo.
+-- COUNT(*) AS numero_rentas que cuente el numero de rentas, uniendo los datos de id de peliculas y su titulo.
+-- ROW_NUMBER para asignar un valor a cada ROW y que la cuente.
+-- FROM para indicarle de donde tiene que sacar los datos.
+-- INNER JOIN para unir los datos de la tabla inventario y peliculas.
+-- GROUP BY para unir las peliculas y que no se repitan.
+-- LIMIT para darle un limite de rows.
